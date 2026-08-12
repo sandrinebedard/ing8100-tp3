@@ -66,6 +66,47 @@ New users should follow these steps to run the package successfully:
 
 - Run the `main_dofile.do` file.
 
+### Downloading the data (automated)
+
+This repository includes a helper script to automatically download all files from a Dataverse/Borealis dataset and save them under the repository `data/raw` folder.
+
+- Script: `scripts/download_dataverse.py`
+- Requirements: Python 3 and the `requests` library (install with `pip install requests`).
+- Basic usage (default saves into `data/raw`):
+
+```bash
+python3 scripts/download_dataverse.py
+```
+
+- Common options:
+  - `--doi` : dataset persistent ID (default set in script)
+  - `--server-url` : Dataverse base URL (default: https://demo.borealisdata.ca)
+  - `--output-dir` : base output directory (default: `data/raw`)
+  - `--token` : Dataverse API token (or set `DATAVERSE_API_TOKEN` env var)
+  - `--force` : re-download files even if they already exist locally
+
+- Authentication: If your dataset requires a token, set the `DATAVERSE_API_TOKEN` environment variable or pass `--token TOKEN` on the command line. The script will send the token in `X-Dataverse-key` and `Authorization: Bearer` headers.
+
+- Behavior and organization:
+  - Files are downloaded directly under the `data/raw` directory (no extra DOI-level folder). For example, after a run you will see `data/raw/<subfolders>/...` and files preserved in the same relative layout as on the dataset.
+  - The script preserves subfolder structure (creates subfolders as needed) and writes files atomically using a `.part` temporary suffix before renaming.
+  - Existing files are skipped by default; use `--force` to overwrite.
+  - The script attempts to discover files using the Dataverse `dirindex` API and falls back to parsing directory HTML if needed. It retries transient network errors.
+
+If you prefer to run the download in an isolated environment, you can use conda (recommended if you use conda) or a Python `venv` (alternative).
+
+Conda example (uses `environment.yml` in the repository):
+
+```bash
+conda env create -f environment.yml
+conda activate venv-tp3
+python scripts/download_dataverse.py
+```
+
+The `environment.yml` file in this repository includes `requests` and other packages used in the analysis. Using conda will install the versions specified there.
+
+After running, the `data/raw` folder will contain the downloaded dataset files and any dataset subfolders. Include these files (or document how to regenerate them) when sharing reproducible outputs.
+
 ## List of Exhibits
 
 Clearly identify and document the tables and figures as they appear in the manuscript by their corresponding numbers. If file names do not correspond to exhibit numbers, provide detailed explanations.
