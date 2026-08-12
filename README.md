@@ -18,6 +18,8 @@ This repository contains tools and scripts used for the third practical assignme
 ## Contents
 - `scripts/download_dataverse.py` — discover and download all files from a Dataverse dataset into `data/raw`.
 - `scripts/preprocess_images.py` — rename and copy microscopy images into `data/processed`.
+- `scripts/extract_features.py` — segment lesions, extract shape/color features, save `results/features.csv`, per-image figures, and `results/summary_report.txt`.
+- `scripts/plot_lesion_sizes.py` — create a scatter plot of lesion sizes from `results/features.csv`.
 - `environment.yml` — conda environment specification used to run the scripts and analysis.
 
 ## Quick start
@@ -41,6 +43,18 @@ python scripts/download_dataverse.py
 python3 scripts/preprocess_images.py
 ```
 
+4. Extract features and create per-image figures (writes `results/features.csv` and `results/summary_report.txt`):
+
+```bash
+python3 scripts/extract_features.py --input data/processed --output results
+```
+
+5. Create the lesion size scatter plot:
+
+```bash
+python3 scripts/plot_lesion_sizes.py --csv results/features.csv --output results/lesion_size_scatter.png
+```
+
 Both scripts support options; run with `--help` to see available flags.
 
 ## Environment
@@ -60,4 +74,13 @@ Both scripts support options; run with `--help` to see available flags.
 
 ```bash
 python3 scripts/preprocess_images.py --input-dirs "data/Even Illuminated Macro Images" "data/raw/Uneven Illuminated Macro Images" --output-dir data/processed
+```
+
+### Quick analysis and report
+
+After running feature extraction and plotting, a simple Markdown report is generated at `results/analysis_report.md` describing the dataset, methods, and visual outputs. Open it to review the figures and summary statistics.
+
+```bash
+# View the report (Markdown viewer or plain text)
+less results/analysis_report.md
 ```
