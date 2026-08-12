@@ -12,10 +12,8 @@ This repository contains tools and scripts used for the third practical assignme
 - [Quick start](#quick-start)
 - [Environment](#environment)
 - [Data layout and conventions](#data-layout-and-conventions)
-- [Preprocessing details](#preprocessing-details)
-- [How to run the preprocessing script](#how-to-run-the-preprocessing-script)
-- [Project notes](#project-notes)
-- [Folder structure](#folder-structure)
+- [Preprocessing](#preprocessing)
+
 
 ## Contents
 - `scripts/download_dataverse.py` — discover and download all files from a Dataverse dataset into `data/raw`.
@@ -53,12 +51,12 @@ Both scripts support options; run with `--help` to see available flags.
 - `data/Even Illuminated Macro Images/` and `data/raw/Uneven Illuminated Macro Images/` — source folders containing microscopy `.jpg` files. The preprocess script reads from these (by default) and other provided input paths.
 - `data/processed/` — flat directory of renamed microscopy images produced by `scripts/preprocess_images.py`.
 
-## Preprocessing details
+## Preprocessing
 - The preprocessing script looks recursively for `.jpg`/`.jpeg` files in the specified input directories.
 - It renames files matching the pattern `{id}_Orig.{ext}` to `sub-{id}_original.{ext}` (case-insensitive), copies them into `data/processed`, and does not modify originals.
 - If a name collision occurs in `data/processed` the script appends `_1`, `_2`, ... to the filename to avoid overwriting and prints a message.
 
-## How to run the preprocessing script
+### How to run the preprocessing script
 
 ```bash
 python3 scripts/preprocess_images.py --input-dirs "data/Even Illuminated Macro Images" "data/raw/Uneven Illuminated Macro Images" --output-dir data/processed
