@@ -1,0 +1,26 @@
+Melanoma image feature extraction — summary report
+=======================================================
+Number of images processed: 8
+
+Feature averages (mean ± std) across all images:
+  area_px             : 712644.375 ± 175671.103
+  perimeter_px        : 7853.664 ± 2574.036
+  circularity         :    0.185 ±    0.106
+  equiv_diameter_px   :  945.153 ±  126.729
+  asymmetry_index     :    0.468 ±    0.200
+  mean_r              :  108.280 ±   19.185
+  std_r               :   26.202 ±    4.359
+  mean_g              :   70.039 ±   11.784
+  std_g               :   18.714 ±    5.895
+  mean_b              :   55.566 ±   12.020
+  std_b               :   18.079 ±    7.158
+  mean_h              :   15.253 ±   16.869
+  std_h               :   12.640 ±   20.529
+  mean_s              :  118.984 ±   36.268
+  std_s               :   36.474 ±   10.029
+  mean_v              :  108.538 ±   18.915
+  std_v               :   26.360 ±    4.610
+
+Most circular lesion:  sub-389_original.jpg (circularity=0.387)
+Least circular lesion: sub-397_original.jpg (circularity=0.043)
+Most asymmetric lesion: sub-397_original.jpg (asymmetry=0.840)
